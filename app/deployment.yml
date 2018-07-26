@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: hello-world-container
-        image: hello-world:latest
+        image: busybox:glibc

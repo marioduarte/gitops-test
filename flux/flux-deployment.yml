@@ -56,6 +56,7 @@ spec:
         #   mountPath: /root/.ssh
 
         args:
+        - --git-poll-interval=30s
 
         # if you deployed memcached in a different namespace to flux,
         # or with a different service name, you can supply these
@@ -68,7 +69,7 @@ spec:
         - --ssh-keygen-dir=/var/fluxd/keygen
 
         # replace or remove the following URL
-        - --git-url=git@github.com:marioduarte/gitops-test
+        - --git-url=git@github.com:marioduarte/gitops-test.git
         - --git-branch=master
 
         # include these next two to connect to an "upstream" service
