@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app2
+spec:
+  source:
+    targetRevision: master
+    repoURL: https://github.com/marioduarte/gitops-test.git
+    path: app
+    environment: prod/ratpack
+  destination:
+   server: https://4DA88E5AF352C32F8A1B1292EB3E5D45.yl4.us-east-1.eks.amazonaws.com
+   namespace: app-test2
