@@ -1,0 +1,88 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: kiam-server
+spec:
+  template:
+    metadata:
+      {{- if .Values.server.podAnnotations }}
+      annotations:
+{{ toYaml .Values.server.podAnnotations | indent 8 }}
+      {{- end }}
+      labels:
+        app: kiam
+        role: server
+      {{- if .Values.server.podLabels }}
+{{ toYaml .Values.server.podLabels | indent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: kiam-server
+    {{- if .Values.server.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.server.nodeSelector | indent 8 }}
+    {{- end }}
+      tolerations:
+{{ toYaml .Values.server.tolerations | indent 8 }}
+      volumes:
+        # - name: ssl-certs
+        #   hostPath:
+        #     # for AWS linux or RHEL distros
+        #     # path: /etc/pki/ca-trust/extracted/pem/
+        #     path: /usr/share/ca-certificates
+        - name: tls
+          secret:
+            secretName: kiam-server-tls
+      containers:
+        - name: kiam
+          image: quay.io/uswitch/kiam:{{ .Values.server.image.tag }}
+          imagePullPolicy: Always
+          command:
+            - /kiam
+          args:
+            - server
+            - --json-log
+            - --bind=0.0.0.0:443
+            - --cert=/etc/kiam/tls/server.pem
+            - --key=/etc/kiam/tls/server-key.pem
+            - --ca=/etc/kiam/tls/ca.pem
+            - --role-base-arn-autodetect
+            - --sync=1m
+            - --prometheus-listen-addr=0.0.0.0:9620
+            - --prometheus-sync-interval=5s
+          volumeMounts:
+            # - mountPath: /etc/ssl/certs
+            #   name: ssl-certs
+            - mountPath: /etc/kiam/tls
+              name: tls
+        {{- if .Values.server.livenessProbe.enabled }}
+          livenessProbe:
+            exec:
+              command:
+              - /kiam
+              - health
+              - --cert=/etc/kiam/tls/server.pem
+              - --key=/etc/kiam/tls/server-key.pem
+              - --ca=/etc/kiam/tls/ca.pem
+              - --server-address=localhost:443
+              - --gateway-timeout-creation=1s
+              - --timeout=5s
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 10
+        {{- end }}
+        {{- if .Values.server.readinessProbe.enabled }}
+          readinessProbe:
+            exec:
+              command:
+              - /kiam
+              - health
+              - --cert=/etc/kiam/tls/server.pem
+              - --key=/etc/kiam/tls/server-key.pem
+              - --ca=/etc/kiam/tls/ca.pem
+              - --server-address=localhost:443
+              - --gateway-timeout-creation=1s
+              - --timeout=5s
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 10
+        {{- end }}

@@ -1,0 +1,31 @@
+
+server:
+  namespace: aws
+
+  podAnnotations: {}
+
+  image:
+    tag: v3.0-rc1
+
+  ## Base64-encoded PEM values for agent's CA certificate(s), certificate and private key
+  ##
+  tlsFiles:
+    ca:
+    cert:
+    key:
+
+  ## Node labels for pod assignment
+  ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector: {}
+    # kubernetes.io/role: node
+  ## Pod tolerations
+  ## Ref https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: []
+
+  livenessProbe:
+    enabled: true
+
+  readinessProbe:
+    enabled: true
