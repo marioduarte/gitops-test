@@ -24,11 +24,6 @@ spec:
       tolerations:
 {{ toYaml .Values.server.tolerations | indent 8 }}
       volumes:
-        # - name: ssl-certs
-        #   hostPath:
-        #     # for AWS linux or RHEL distros
-        #     # path: /etc/pki/ca-trust/extracted/pem/
-        #     path: /usr/share/ca-certificates
         - name: tls
           secret:
             secretName: kiam-server
@@ -50,8 +45,6 @@ spec:
             - --prometheus-listen-addr=0.0.0.0:9620
             - --prometheus-sync-interval=5s
           volumeMounts:
-            # - mountPath: /etc/ssl/certs
-            #   name: ssl-certs
             - mountPath: /etc/kiam/tls
               name: tls
         {{- if .Values.server.livenessProbe.enabled }}
