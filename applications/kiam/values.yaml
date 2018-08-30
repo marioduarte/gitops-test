@@ -10,9 +10,9 @@ server:
   ## Base64-encoded PEM values for agent's CA certificate(s), certificate and private key
   ##
   tlsFiles:
-    ca:
-    cert:
-    key:
+    ca.pem :
+    cert.pem :
+    key.pem :
 
   ## Node labels for pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
