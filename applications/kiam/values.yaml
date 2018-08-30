@@ -25,7 +25,9 @@ server:
   tolerations: []
 
   livenessProbe:
+    address: "127.0.0.1"
     enabled: true
 
   readinessProbe:
     enabled: true
+    address: "127.0.0.1"
