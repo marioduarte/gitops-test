@@ -31,7 +31,7 @@ spec:
         #     path: /usr/share/ca-certificates
         - name: tls
           secret:
-            secretName: kiam-server-tls
+            secretName: kiam-server
       containers:
         - name: kiam
           image: quay.io/uswitch/kiam:{{ .Values.server.image.tag }}
