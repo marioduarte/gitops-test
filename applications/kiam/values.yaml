@@ -17,6 +17,8 @@ server:
     server.pem : 
     server-key.pem : 
 
+  extraEnv: {}
+
   livenessProbe:
     address: "127.0.0.1"
     enabled: true
@@ -49,6 +51,8 @@ agent:
     ca.pem : 
     agent.pem : 
     agent-key.pem : 
+
+  extraEnv: {}
 
   livenessProbe:
     enabled: true

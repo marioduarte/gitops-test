@@ -61,6 +61,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+          {{- range $name, $value := .Values.agent.extraEnv }}
+            - name: {{ $name }}
+              value: {{ quote $value }}
+          {{- end }}
           volumeMounts:
             - mountPath: /etc/kiam/tls
               name: tls
