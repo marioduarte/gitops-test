@@ -21,8 +21,10 @@ spec:
       nodeSelector:
 {{ toYaml .Values.server.nodeSelector | indent 8 }}
     {{- end }}
+    {{- if .Values.server.tolerations }}
       tolerations:
 {{ toYaml .Values.server.tolerations | indent 8 }}
+    {{- end }}
       volumes:
         - name: tls
           secret:

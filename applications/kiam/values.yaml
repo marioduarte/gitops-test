@@ -37,20 +37,30 @@ server:
 
 
 agent:
-  # namespace: kube-system
+  namespace: kube-system
 
-  # podAnnotations: {}
+  podAnnotations: {}
 
-  # nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/role: node
 
-  # tolerations: []
+  tolerations: []
 
-  # image:
-  #   tag: v3.0-rc1
-
+  image:
+    tag: v3.0-rc1
 
   ## Base64-encoded PEM values for agent's CA certificate(s), certificate and private key
   tlsFiles:
     ca.pem : 
     agent.pem : 
     agent-key.pem : 
+
+  resources:
+    limits:
+      memory: 100Mi
+      cpu: 200m
+    requests:
+      cpu: 100m
+      memory: 100Mi
+
+  updateStrategy: RollingUpdate
