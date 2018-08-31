@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: tls
           secret:
-            secretName: kiam-server
+            secretName: kiam-server-tls
       containers:
         - name: kiam
           image: quay.io/uswitch/kiam:{{ .Values.server.image.tag }}
