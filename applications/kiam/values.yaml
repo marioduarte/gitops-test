@@ -54,6 +54,8 @@ agent:
 
   extraEnv: {}
 
+  serverAddress: "kiam-server:443"
+
   livenessProbe:
     enabled: true
 
