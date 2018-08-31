@@ -39,9 +39,6 @@ server:
 agent:
   podAnnotations: {}
 
-  nodeSelector:
-    kubernetes.io/role: node
-
   tolerations: []
 
   image:
