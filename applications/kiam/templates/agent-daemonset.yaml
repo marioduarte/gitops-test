@@ -19,13 +19,13 @@ spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       serviceAccountName: kiam-agent
-    {{- if .Values.server.nodeSelector }}
+    {{- if .Values.agent.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.server.nodeSelector | indent 8 }}
+{{ toYaml .Values.agent.nodeSelector | indent 8 }}
     {{- end }}
-    {{- if .Values.server.tolerations }}
+    {{- if .Values.agent.tolerations }}
       tolerations:
-{{ toYaml .Values.server.tolerations | indent 8 }}
+{{ toYaml .Values.agent.tolerations | indent 8 }}
     {{- end }}
       volumes:
         - name: tls
@@ -66,7 +66,7 @@ spec:
               name: tls
             - mountPath: /var/run/xtables.lock
               name: xtables
-        {{- if .Values.server.livenessProbe.enabled }}
+        {{- if .Values.agent.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: /ping
