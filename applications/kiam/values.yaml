@@ -53,6 +53,9 @@ agent:
     agent.pem : 
     agent-key.pem : 
 
+  livenessProbe:
+    enabled: true
+
   resources:
     limits:
       memory: 100Mi

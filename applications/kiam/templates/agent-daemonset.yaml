@@ -66,12 +66,14 @@ spec:
               name: tls
             - mountPath: /var/run/xtables.lock
               name: xtables
+        {{- if .Values.server.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: /ping
               port: 8181
             initialDelaySeconds: 3
             periodSeconds: 3
+         {{- end }}
         {{- if .Values.agent.resources }}
           resources:
 {{ toYaml .Values.agent.resources | indent 12 }}
