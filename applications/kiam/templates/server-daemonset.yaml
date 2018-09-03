@@ -43,6 +43,7 @@ spec:
             - --ca=/etc/kiam/tls/ca.pem
             - --role-base-arn-autodetect
             - --sync=1m
+            - --session-duration=900s
             - --prometheus-listen-addr=0.0.0.0:9620
             - --prometheus-sync-interval=5s
         {{- if .Values.server.extraEnv }}
@@ -64,7 +65,7 @@ spec:
               - --key=/etc/kiam/tls/server-key.pem
               - --ca=/etc/kiam/tls/ca.pem
               - --server-address={{ .Values.server.livenessProbe.address }}:443
-              - --gateway-timeout-creation=1s
+              - --server-address-refresh=2s
               - --timeout=5s
             initialDelaySeconds: 10
             periodSeconds: 10
@@ -79,7 +80,7 @@ spec:
               - --key=/etc/kiam/tls/server-key.pem
               - --ca=/etc/kiam/tls/ca.pem
               - --server-address={{ .Values.server.readinessProbe.address }}:443
-              - --gateway-timeout-creation=1s
+              - --server-address-refresh=2s
               - --timeout=5s
             initialDelaySeconds: 3
             periodSeconds: 10

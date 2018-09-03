@@ -46,6 +46,7 @@ spec:
           args:
             - --iptables
             - --host-interface=eni+
+            - --host=$(HOST_IP)
             - --json-log
             - --port=8181
             - --cert=/etc/kiam/tls/agent.pem
@@ -54,7 +55,6 @@ spec:
             - --server-address={{ .Values.agent.serverAddress }}
             - --prometheus-listen-addr=0.0.0.0:9620
             - --prometheus-sync-interval=5s
-            - --gateway-timeout-creation=1s
           env:
             - name: HOST_IP
               valueFrom:
