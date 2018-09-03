@@ -20,12 +20,12 @@ server:
   extraEnv: {}
 
   livenessProbe:
-    address: "localhost"
+    address: "127.0.0.1"
     enabled: true
 
   readinessProbe:
     enabled: true
-    address: "localhost"
+    address: "127.0.0.1"
 
   resources: 
     limits:
