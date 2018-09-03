@@ -42,9 +42,8 @@ spec:
           image: quay.io/uswitch/kiam:{{ .Values.agent.image.tag }}
           imagePullPolicy: Always
           command:
-            - /kiam
+            - /agent
           args:
-            - agent
             - --iptables
             - --host-interface=eni+
             - --json-log
@@ -77,7 +76,7 @@ spec:
               port: 8181
             initialDelaySeconds: 3
             periodSeconds: 3
-         {{- end }}
+        {{- end }}
         {{- if .Values.agent.resources }}
           resources:
 {{ toYaml .Values.agent.resources | indent 12 }}

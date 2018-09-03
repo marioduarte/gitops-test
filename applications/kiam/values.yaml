@@ -9,7 +9,7 @@ server:
   tolerations: []
 
   image:
-    tag: v3.0-rc1
+    tag: "2.7"
 
   ## Base64-encoded PEM values for server's CA certificate(s), certificate and private key
   tlsFiles:
@@ -20,12 +20,12 @@ server:
   extraEnv: {}
 
   livenessProbe:
-    address: "127.0.0.1"
+    address: "localhost"
     enabled: true
 
   readinessProbe:
     enabled: true
-    address: "127.0.0.1"
+    address: "localhost"
 
   resources: 
     limits:
@@ -44,7 +44,7 @@ agent:
   tolerations: []
 
   image:
-    tag: v3.0-rc1
+    tag: "2.7"
 
   ## Base64-encoded PEM values for agent's CA certificate(s), certificate and private key
   tlsFiles:
