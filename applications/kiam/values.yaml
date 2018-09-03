@@ -52,6 +52,15 @@ agent:
     agent.pem : 
     agent-key.pem : 
 
+  roleBaseArn: null
+
+  assumeRoleArn: null
+
+  cache:
+    syncInterval: 1m
+
+  sessionDuration: 15m
+
   extraEnv: {}
 
   serverAddress: "kiam-server:443"
