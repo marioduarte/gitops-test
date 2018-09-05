@@ -26,6 +26,9 @@ spec:
 {{ toYaml .Values.server.tolerations | indent 8 }}
     {{- end }}
       volumes:
+        - name: ssl-certs
+          hostPath:
+            path: /etc/pki/ca-trust/extracted/pem/
         - name: tls
           secret:
             secretName: kiam-server-tls
@@ -61,6 +64,8 @@ spec:
           {{- end }}
         {{- end }}
           volumeMounts:
+            - mountPath: /etc/ssl/certs
+              name: ssl-certs
             - mountPath: /etc/kiam/tls
               name: tls
         {{- if .Values.server.livenessProbe.enabled }}

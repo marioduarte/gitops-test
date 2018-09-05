@@ -28,6 +28,9 @@ spec:
 {{ toYaml .Values.agent.tolerations | indent 8 }}
     {{- end }}
       volumes:
+        - name: ssl-certs
+          hostPath:
+            path: /etc/pki/ca-trust/extracted/pem/
         - name: tls
           secret:
             secretName: kiam-agent-tls
@@ -65,6 +68,8 @@ spec:
               value: {{ quote $value }}
           {{- end }}
           volumeMounts:
+            - mountPath: /etc/ssl/certs
+              name: ssl-certs
             - mountPath: /etc/kiam/tls
               name: tls
             - mountPath: /var/run/xtables.lock
